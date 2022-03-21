@@ -2,14 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Currencies = ({ currenciesList }) => (
+const Currencies = ({ currenciesList, onClickChange }) => (
   <div className="currencies">
     <div className="currencies-title">
       Currencies
     </div>
     <ul>
       {currenciesList.map((item) => (
-        <li key={item.name} className="currency"> {item.name}</li>
+        <li
+          key={item.name}
+          className="currency"
+          onClick={(evt) => {
+            const newValue = evt.target.innerHTML;
+            console.log('newValue == ', newValue);
+            onClickChange(newValue);
+          }}
+        >
+          {item.name}
+        </li>
       ))}
     </ul>
   </div>
@@ -19,6 +29,7 @@ Currencies.propTypes = {
   currenciesList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
   })).isRequired,
+  onClickChange: PropTypes.func.isRequired,
 };
 export default Currencies;
 

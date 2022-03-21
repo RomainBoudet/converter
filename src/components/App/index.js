@@ -32,6 +32,9 @@ class App extends React.Component {
     super(props); // j'exécute le constructeur de la class parent !
     this.state = { // une seul state ! toujouts un obj !
       opened: true,
+      baseAmount: 1,
+      selectedCurrency: 'United States Dollar',
+
     };
   }
 
@@ -45,18 +48,35 @@ class App extends React.Component {
       opened: !opened,
     });
   }
-  // je ne modifit JAMAIS mon state directement !
+  // je ne modifit JAMAIS mon state directement, toujours utilisé setState !
   // sinon React ne sera pa au courant
 
+  changeBaseValue = (newValue) => {
+    this.setState({
+      baseAmount: newValue,
+    });
+  }
+
+  changeCurrencyValue = (newValue) => {
+    this.setState({
+      selectedCurrency: newValue,
+    });
+  }
+
+  myrate = () => data.find((item) => item.name === this.state.selectedCurrency);
+
+  calculate = () => parseFloat((this.state.baseAmount * this.myrate().rate).toFixed(2), 10);
+  //! attention, return un type string et attend un number dans le composant...
+
   render() {
-    const { opened } = this.state;
+    const { opened, baseAmount, selectedCurrency } = this.state;
     // je récupére ce qui se trouve dans mon state en destructurant !
     return (
       <div className="app">
-        <Header baseAmount={1} />
+        <Header baseAmount={baseAmount} onInputChange={this.changeBaseValue} />
         <Toggle toggle={this.toggle} open={opened} />
-        { opened && <Currencies currenciesList={data} />}
-        <Amount value={1.09} currency="United States Dollard" />
+        { opened && <Currencies currenciesList={data} onClickChange={this.changeCurrencyValue} />}
+        <Amount value={this.calculate()} currency={selectedCurrency} />
       </div>
     );
   }

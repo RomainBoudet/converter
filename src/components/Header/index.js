@@ -2,34 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Header = ({ baseAmount }) => (
+const Header = ({ baseAmount, onInputChange }) => (
   <div className="header">
     <h1 className="header-title">Converter</h1>
-    <p className="header-amount">{baseAmount} euro</p>
+    <p className="header-amount">
+      <input
+        type="number"
+        defaultValue={baseAmount}
+        onChange={(evt) => {
+          // je récupére ce qui a été tapé dans l'input, au changement, via evt.target.value
+          // Je passe cette nouvelle valeur a ma fonction recu dans mes proposal
+          // pour que le state du composant parent soit mis a jour
+          const newValue = parseInt(evt.target.value, 10);
+          onInputChange(newValue);
+        }}
+      />
+      {baseAmount > 1 ? 'euros' : 'euro'}
+    </p>
   </div>
 );
 
 Header.propTypes = {
   baseAmount: PropTypes.number.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default Header;
-
-// exemple de propType : ou ingredients est un tableau d'objets passé a mon compasant
-// avec 4 clé valeurs, ou je definis le type de chaque clés !
-/* Ingredients.propTypes = {
-
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    unit: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  })).isRequired,
-}; */
-
-/* Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
-}; */
