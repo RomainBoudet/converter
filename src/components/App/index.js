@@ -11,6 +11,7 @@ import data from '../../data/currencies';
 import Header from '../Header';
 import Currencies from '../Currencies';
 import Amount from '../Amount';
+import Toggle from '../Toggle';
 
 // == Composant avec une class :
 // Le constructor recois les props et je dois appeler le constructeur
@@ -39,12 +40,13 @@ class App extends React.Component {
   // Cette fois ci on est bon, plus besoin de binding !
 
   toggle = () => {
-    console.log(this.state);
-    this.setState({ // je ne modifit JAMAIS mon state directement !
-      // sinon React ne sera pa au courant
-      opened: !this.state.opened,
+    const { opened } = this.state;
+    this.setState({
+      opened: !opened,
     });
   }
+  // je ne modifit JAMAIS mon state directement !
+  // sinon React ne sera pa au courant
 
   render() {
     const { opened } = this.state;
@@ -52,9 +54,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <Header baseAmount={1} />
-        <button type="button" onClick={this.toggle}>
-          Affichage currencies
-        </button>
+        <Toggle toggle={this.toggle} open={opened} />
         { opened && <Currencies currenciesList={data} />}
         <Amount value={1.09} currency="United States Dollard" />
       </div>

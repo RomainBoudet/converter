@@ -18,7 +18,7 @@
   font-weight: 500;
   transition: background-color 1s;
   cursor: pointer;
-  &-hover{
+  &:hover{
     background-color: vars.$color-alt;
     transition-duration: vars.$transition-fast;
   }

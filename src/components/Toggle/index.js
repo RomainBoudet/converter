@@ -2,25 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Currencies = ({ currenciesList }) => (
-  <div className="currencies">
-    <div className="currencies-title">
-      Currencies
-    </div>
-    <ul>
-      {currenciesList.map((item) => (
-        <li key={item.name} className="currency"> {item.name}</li>
-      ))}
-    </ul>
-  </div>
-);
-
-Currencies.propTypes = {
-  currenciesList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  })).isRequired,
+const Toggle = ({ open, toggle }) => {
+  const cssClassName = open ? 'toggle toggle-open' : 'toggle';
+  return (
+    <button type="button" className={cssClassName} onClick={toggle}> v </button>
+  );
 };
-export default Currencies;
+
+Toggle.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
+
+export default Toggle;
 
 // exemple de propType : ou ingredients est un tableau d'objets passé a mon compasant
 // avec 4 clé valeurs, ou je definis le type de chaque clés !
