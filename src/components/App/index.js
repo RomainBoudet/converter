@@ -31,8 +31,16 @@ class App extends React.Component {
     this.state = { // une seul state ! toujouts un obj !
       opened: true,
     };
+    // this represente la méthode toggle dans la fonction toggle, et je dois changer çà
+    // pour dire qu'en faite thhis représente la class et non la méthode Toggle !
     this.toggle = this.toggle.bind(this);
   }
+
+  //! welcome to plugin-proposal_class_properties !
+  // avec le plugin webpack (plugin-proposal_class_properties) on peut écrire la fonction comme ça :
+  // toogle = () => {}
+  // ou ici this vaut le parent de la fonction et donc la class !
+  // Cette fois ci on est bon, plus besoin de binding !
 
   toggle() {
     console.log(this.state);
