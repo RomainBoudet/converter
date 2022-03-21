@@ -22,7 +22,7 @@ import Amount from '../Amount';
 
 // eslint-disable-next-line react/prefer-stateless-function
 
-//! Ici j'utilise un composnant fait avec une class pour gérer le state et je n'utilise pas webpack
+//! Ici j'utilise un composant fait avec une class pour gérer le state et je n'utilise pas webpack
 //! je dois donc bind a la main this !
 
 class App extends React.Component {
@@ -39,7 +39,9 @@ class App extends React.Component {
   //! welcome to plugin-proposal_class_properties !
   // avec le plugin webpack (plugin-proposal_class_properties) on peut écrire la fonction comme ça :
   // toogle = () => {}
+  // ce qui normalement est impossible dans une class...
   // ou ici this vaut le parent de la fonction et donc la class !
+  // Alors qu'avant, this valait la fonction elle même...
   // Cette fois ci on est bon, plus besoin de binding !
 
   toggle() {
