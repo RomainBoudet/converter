@@ -7,6 +7,7 @@ const Header = ({ baseAmount, onInputChange }) => (
     <h1 className="header-title">Converter</h1>
     <p className="header-amount">
       <input
+        className="header-input"
         type="number"
         defaultValue={baseAmount}
         onChange={(evt) => {

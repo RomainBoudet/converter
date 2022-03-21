@@ -5,6 +5,13 @@
   color: vars.$color-light;
   padding: vars.$gutter * 3;
   text-align: center;
+  &-input {
+    width: 60px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: #fff;
+    font-size: 1.6em;
+  }
   &-title {
     font-size:2em;
     font-weight: 700;

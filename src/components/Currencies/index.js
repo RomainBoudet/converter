@@ -12,10 +12,8 @@ const Currencies = ({ currenciesList, onClickChange }) => (
         <li
           key={item.name}
           className="currency"
-          onClick={(evt) => {
-            const newValue = evt.target.innerHTML;
-            console.log('newValue == ', newValue);
-            onClickChange(newValue);
+          onClick={() => {
+            onClickChange(item.name);
           }}
         >
           {item.name}
