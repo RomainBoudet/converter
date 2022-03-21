@@ -38,6 +38,11 @@ class App extends React.Component {
     };
   }
 
+  // a la mise a jour du composant, on vérifit que le titre de la page a bien la devise du state !
+  componentDidUpdate() {
+    this.updatePageTitle();
+  }
+
   // ou ici this vaut le parent de la fonction et donc la class !
   // Alors qu'avant (dans index_old.js), this valait la fonction elle même...
   // Cette fois ci on est bon, plus besoin de binding !
@@ -50,6 +55,12 @@ class App extends React.Component {
   }
   // je ne modifit JAMAIS mon state directement, toujours utilisé setState !
   // sinon React ne sera pa au courant
+
+  // Changement du titre de la page !
+  updatePageTitle = () => {
+    const { selectedCurrency } = this.state;
+    document.title = `Euro -> ${selectedCurrency}`;
+  }
 
   changeBaseValue = (newValue) => {
     this.setState({
