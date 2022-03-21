@@ -22,9 +22,8 @@ import Amount from '../Amount';
 
 // eslint-disable-next-line react/prefer-stateless-function
 
-//! Ici j'utilise webpack avec son plugin plugin-proposal_class_properties
-//! qui me permet cette écriture en fat arrow, au lieu d'une méthode,
-//! ce qui normalement est impossible ici
+//! Ici j'utilise un composant fait avec une class pour gérer le state et je n'utilise pas webpack
+//! je dois donc bind a la main this !
 
 class App extends React.Component {
   constructor(props) {
@@ -32,13 +31,20 @@ class App extends React.Component {
     this.state = { // une seul state ! toujouts un obj !
       opened: true,
     };
+    // this represente la méthode toggle dans la fonction toggle, et je dois changer çà
+    // pour dire qu'en faite thhis représente la class et non la méthode Toggle !
+    this.toggle = this.toggle.bind(this);
   }
 
+  //! welcome to plugin-proposal_class_properties !
+  // avec le plugin webpack (plugin-proposal_class_properties) on peut écrire la fonction comme ça :
+  // toogle = () => {}
+  // ce qui normalement est impossible dans une class...
   // ou ici this vaut le parent de la fonction et donc la class !
-  // Alors qu'avant (dans index_old.js), this valait la fonction elle même...
+  // Alors qu'avant, this valait la fonction elle même...
   // Cette fois ci on est bon, plus besoin de binding !
 
-  toggle = () => {
+  toggle() {
     console.log(this.state);
     this.setState({ // je ne modifit JAMAIS mon state directement !
       // sinon React ne sera pa au courant
