@@ -2,7 +2,9 @@
 @use 'vars';
 
 body {
-  font-family: sans-serif;
+  font-family: vars.$font;
+  background-color: vars.$color-alt;
+  color: vars.$color-light;
 }
 
 /* 
