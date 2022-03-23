@@ -7,7 +7,7 @@ import React from 'react';
 
 // == Import (style, data, components)
 import './styles.scss';
-import data from '../../data/currencies';
+import data from '../../data/currencies'; // à mettre dans le state si ça change !
 import Header from '../Header';
 import Currencies from '../Currencies';
 import Amount from '../Amount';
@@ -28,14 +28,12 @@ import Toggle from '../Toggle';
 //! ce qui normalement est impossible ici
 
 class App extends React.Component {
-  constructor(props) {
-    super(props); // j'exécute le constructeur de la class parent !
-    this.state = { // une seul state ! toujouts un obj !
-      opened: true,
-      baseAmount: 1,
-      selectedCurrency: 'United States Dollar',
+  state = { // une seul state ! toujouts un obj !
+    opened: true,
+    baseAmount: 1,
+    selectedCurrency: 'United States Dollar',
+    filter: '',
 
-    };
   }
 
   // a la mise a jour du composant, on vérifit que le titre de la page a bien la devise du state !
@@ -74,33 +72,50 @@ class App extends React.Component {
     });
   }
 
-  myrate = () => data.find((item) => item.name === this.state.selectedCurrency);
+  handleFilterChange = (newValue) => {
+    this.setState({
+      filter: newValue,
+    });
+  }
 
-  calculate = () => parseFloat((this.state.baseAmount * this.myrate().rate).toFixed(2), 10);
+  // myrate = () => data.find((item) => item.name === this.state.selectedCurrency);
+  // calculate = () => parseFloat((this.state.baseAmount * this.myrate().rate).toFixed(2), 10);
+  calculate = () => {
+    const myrate = data.find((item) => item.name === this.state.selectedCurrency);
+    const number = parseFloat((this.state.baseAmount * myrate.rate).toFixed(2), 10);
+    return number;
+  }
   //! attention, return un type string et attend un number dans le composant...
 
+  // je récupére ce qui se trouve dans mon state en destructurant !
+  // Je filtre la liste complète des devises en ne conservant
+  // que celles dont le .name inclue le texte du filtre
+  filteredCurrencies = () => (
+    data.filter((item) => item.name.toLocaleLowerCase().includes(this.state.filter.toLowerCase()))
+  )
+
   render() {
-    const { opened, baseAmount, selectedCurrency } = this.state;
-    // je récupére ce qui se trouve dans mon state en destructurant !
+    const {
+      opened, baseAmount, selectedCurrency,
+    } = this.state;
+
     return (
       <div className="app">
         <Header baseAmount={baseAmount} onInputChange={this.changeBaseValue} />
         <Toggle toggle={this.toggle} open={opened} />
-        { opened && <Currencies currenciesList={data} onClickChange={this.changeCurrencyValue} />}
+        { opened && (
+        <Currencies
+          currenciesList={this.filteredCurrencies()}
+          onClickChange={this.changeCurrencyValue}
+          selectedCurrency={selectedCurrency}
+          onFilterChange={this.handleFilterChange}
+        />
+        )}
         <Amount value={this.calculate()} currency={selectedCurrency} />
       </div>
     );
   }
 }
-
-// == Composant
-/* const App = () => (
-  <div className="app">
-    <Header baseAmount={1} />
-    <Currencies currenciesList={data} />
-    <Amount value={1.09} currency="United States Dollard" />
-  </div>
-); */
 
 // == Export
 export default App;

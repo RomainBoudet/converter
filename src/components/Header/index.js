@@ -14,7 +14,7 @@ const Header = ({ baseAmount, onInputChange }) => (
           // je récupére ce qui a été tapé dans l'input, au changement, via evt.target.value
           // Je passe cette nouvelle valeur a ma fonction recu dans mes proposal
           // pour que le state du composant parent soit mis a jour
-          const newValue = parseInt(evt.target.value, 10);
+          const newValue = parseFloat(evt.target.value, 10);
           onInputChange(newValue);
         }}
       />

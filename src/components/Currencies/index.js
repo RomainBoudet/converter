@@ -2,16 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Currencies = ({ currenciesList, onClickChange }) => (
+const Currencies = ({
+  currenciesList, onClickChange, selectedCurrency, onFilterChange,
+}) => (
   <div className="currencies">
     <div className="currencies-title">
-      Currencies
+      <input
+        type="text"
+        className="currencies-search"
+        placeholder="Filtrer les devises..."
+        onChange={(evt) => {
+          const texteSaisi = evt.target.value;
+          onFilterChange(texteSaisi);
+        }}
+      />
     </div>
     <ul>
       {currenciesList.map((item) => (
         <li
           key={item.name}
-          className="currency"
+          className={item.name === selectedCurrency ? 'currency currency--active' : 'currency'}
           onClick={() => {
             onClickChange(item.name);
           }}
@@ -28,6 +38,8 @@ Currencies.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   onClickChange: PropTypes.func.isRequired,
+  selectedCurrency: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 export default Currencies;
 
