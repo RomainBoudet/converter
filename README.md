@@ -1,6 +1,7 @@
 # converter
 
 Just for practise : A small converter done with react !
+State made with class Component not function component, just for learning...
 
 # Install :
 

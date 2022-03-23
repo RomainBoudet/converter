@@ -43,6 +43,13 @@ class App extends React.Component {
   // a la fin du montage de mes composants, componentDidMount est appelé et le titre va changer !
   componentDidMount() {
     this.updatePageTitle();
+    // Quand mon composant est affiché, j'écoute la touche echap,
+    // si elle est préssé, je lance la méthode toggle
+    document.addEventListener('keyup', (evt) => {
+      if (evt.key === 'Escape') {
+        this.toggle();
+      }
+    });
   }
 
   // a la mise a jour du composant, on vérifit que le titre de la page a bien la devise du state !
@@ -62,6 +69,7 @@ class App extends React.Component {
       opened: !opened,
     });
   }
+
   // je ne modifit JAMAIS mon state directement, TOUJOURS utiliser setState !
   // sinon React ne sera pa au courant
 
