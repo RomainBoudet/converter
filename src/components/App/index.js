@@ -28,6 +28,9 @@ import Toggle from '../Toggle';
 //! ce qui normalement est impossible ici
 
 class App extends React.Component {
+  // ou ici this vaut le parent de la fonction et donc la class !
+  // Alors qu'avant (dans index_old.js), this valait la fonction elle même...
+  // Cette fois ci on est bon, plus besoin de binding !
   state = { // une seul state ! toujouts un obj !
     opened: true,
     baseAmount: 1,
@@ -36,23 +39,16 @@ class App extends React.Component {
 
   }
 
+  //! LIFECYCLE
+  // a la fin du montage de mes composants, componentDidMount est appelé et le titre va changer !
+  componentDidMount() {
+    this.updatePageTitle();
+  }
+
   // a la mise a jour du composant, on vérifit que le titre de la page a bien la devise du state !
   componentDidUpdate() {
     this.updatePageTitle();
   }
-
-  // ou ici this vaut le parent de la fonction et donc la class !
-  // Alors qu'avant (dans index_old.js), this valait la fonction elle même...
-  // Cette fois ci on est bon, plus besoin de binding !
-
-  toggle = () => {
-    const { opened } = this.state;
-    this.setState({
-      opened: !opened,
-    });
-  }
-  // je ne modifit JAMAIS mon state directement, toujours utilisé setState !
-  // sinon React ne sera pa au courant
 
   // Changement du titre de la page !
   updatePageTitle = () => {
@@ -60,10 +56,19 @@ class App extends React.Component {
     document.title = `Euro -> ${selectedCurrency}`;
   }
 
+  toggle = () => {
+    const { opened } = this.state;
+    this.setState({
+      opened: !opened,
+    });
+  }
+  // je ne modifit JAMAIS mon state directement, TOUJOURS utiliser setState !
+  // sinon React ne sera pa au courant
+
   //! NOTION D'INPUT CONTROLLÉ !
   // Ici je respecte la régle du Controlled Comoponent (ou de l'input controllé),
   // avec chaque changement dans un input fait par le user, qui est stocké dans le state !
-  // Toujours de la même maniére : dans mon state, j'ai une méthode qui permet de mettre 
+  // Toujours de la même maniére : dans mon state, j'ai une méthode qui permet de mettre
   // a jour (via setState) la donnée de l'input dans une variable de mon state,
   // et je fait passer cette fonction via les props, à mon composant,
   // pour que lors de l'action (au click ou au changement...), mon composant éxécute
@@ -87,8 +92,6 @@ class App extends React.Component {
     });
   }
 
-  // myrate = () => data.find((item) => item.name === this.state.selectedCurrency);
-  // calculate = () => parseFloat((this.state.baseAmount * this.myrate().rate).toFixed(2), 10);
   calculate = () => {
     const myrate = data.find((item) => item.name === this.state.selectedCurrency);
     const number = parseFloat((this.state.baseAmount * myrate.rate).toFixed(2), 10);
