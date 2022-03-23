@@ -60,6 +60,15 @@ class App extends React.Component {
     document.title = `Euro -> ${selectedCurrency}`;
   }
 
+  //! NOTION D'INPUT CONTROLLÉ !
+  // Ici je respecte la régle du Controlled Comoponent (ou de l'input controllé),
+  // avec chaque changement dans un input fait par le user, qui est stocké dans le state !
+  // Toujours de la même maniére : dans mon state, j'ai une méthode qui permet de mettre 
+  // a jour (via setState) la donnée de l'input dans une variable de mon state,
+  // et je fait passer cette fonction via les props, à mon composant,
+  // pour que lors de l'action (au click ou au changement...), mon composant éxécute
+  // la fonction avec en paramétre la nouvelle valeur à mettre dans le state.
+  // Et comme valeur de mon input (value), je met ce qui provient de mon state !
   changeBaseValue = (newValue) => {
     this.setState({
       baseAmount: newValue,
