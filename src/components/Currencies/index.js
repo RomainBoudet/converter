@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const Currencies = ({
-  currenciesList, onClickChange, selectedCurrency, onFilterChange,
+  currenciesList, onClickChange, selectedCurrency, onFilterChange, filterText,
 }) => (
   <div className="currencies">
     <div className="currencies-title">
       <input
+        value={filterText}
         type="text"
         className="currencies-search"
         placeholder="Filtrer les devises..."
@@ -40,6 +41,7 @@ Currencies.propTypes = {
   onClickChange: PropTypes.func.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
   onFilterChange: PropTypes.func.isRequired,
+  filterText: PropTypes.string.isRequired,
 };
 export default Currencies;
 

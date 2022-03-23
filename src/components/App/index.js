@@ -87,7 +87,6 @@ class App extends React.Component {
   }
   //! attention, return un type string et attend un number dans le composant...
 
-  // je récupére ce qui se trouve dans mon state en destructurant !
   // Je filtre la liste complète des devises en ne conservant
   // que celles dont le .name inclue le texte du filtre
   filteredCurrencies = () => (
@@ -96,7 +95,7 @@ class App extends React.Component {
 
   render() {
     const {
-      opened, baseAmount, selectedCurrency,
+      opened, baseAmount, selectedCurrency, filter,
     } = this.state;
 
     return (
@@ -105,6 +104,7 @@ class App extends React.Component {
         <Toggle toggle={this.toggle} open={opened} />
         { opened && (
         <Currencies
+          filterText={filter}
           currenciesList={this.filteredCurrencies()}
           onClickChange={this.changeCurrencyValue}
           selectedCurrency={selectedCurrency}
