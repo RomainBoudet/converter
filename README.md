@@ -1,6 +1,7 @@
 # converter
 
 Just for practise : A small converter done with react !
+State made with class Component not function component, just for learning...
 
 # Install :
 
@@ -9,3 +10,5 @@ Just for practise : A small converter done with react !
 * Clone this repo: ```git clone <repository url>```
 * Install dependencies: ```yarn```
 * launch the app : ```yarn start```
+
+This project is online [here !](https://converter.romainboudet.fr)
